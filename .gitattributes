@@ -1,0 +1,6 @@
+*.yaml linguist-detectable=true
+*.yml linguist-detectable=true
+*.sh linguist-detectable=true
+*.tf linguist-detectable=true
+*.py linguist-detectable=true
+*.go linguist-detectable=true

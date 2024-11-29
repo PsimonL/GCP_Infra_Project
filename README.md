@@ -20,6 +20,10 @@ Create a system that protects a Golang application from DDoS attacks and other t
     + Pipeline for building a Docker image of the application and deploying it to Cloud Run.
 ---
 
+## Repo structure description
+Good practice is to store code and configs separately, but in this case, "monorepo" is also appropriate choice. Project is
+not big and focuses mainly on infrastructure side and GCP services.
+
 
 
 
