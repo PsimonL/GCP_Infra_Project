@@ -8,8 +8,9 @@ RUN go build -o time-service .
 
 ########## PRODUCTION ##########
 FROM alpine:3.20.3 AS production
-RUN apk --no-cache add ca-certificates libc6-compat
+RUN apk --no-cache add ca-certificates libc6-compat curl
 WORKDIR /root/
 COPY --from=builder /app/time-service .
 EXPOSE 8081
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD curl -f http://localhost:8081/health || exit 1
 CMD ["./time-service"]
