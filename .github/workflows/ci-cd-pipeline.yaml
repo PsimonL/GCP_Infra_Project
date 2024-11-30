@@ -56,3 +56,5 @@ jobs:
           IMAGE_TAG=$(date +'%Y-%m-%d_%H-%M-%S')
           docker tag time-service:production time-service:$IMAGE_TAG
           echo "Tagged image as: time-service:$IMAGE_TAG"
+
+      # TODO: add push to GCP when credentials for GCP account will be available
