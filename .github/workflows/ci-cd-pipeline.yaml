@@ -26,6 +26,7 @@ jobs:
           ls -la 
 
       - name: Install dependencies
+        working-directory: ./microservices/app/
         run: |
           go mod tidy
           go mod vendor  
