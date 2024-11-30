@@ -32,14 +32,17 @@ jobs:
           go mod vendor  
 
       - name: Build Go project
+        working-directory: ./microservices/app/
         run: |
           go build -o time-service .
 
       - name: Build Docker image
+        working-directory: ./microservices/app/
         run: |
           docker build -t time-service .
 
       - name: Run Docker container
+        working-directory: ./microservices/app/
         run: |
           docker run -d -p 8081:8081 time-service
 #        env:
