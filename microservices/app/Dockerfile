@@ -7,7 +7,7 @@ RUN go mod tidy
 RUN go build -o time-service .
 
 ########## PRODUCTION ##########
-FROM alpine:latest
+FROM alpine:3.20.3 AS production
 RUN apk --no-cache add ca-certificates libc6-compat
 WORKDIR /root/
 COPY --from=builder /app/time-service .
