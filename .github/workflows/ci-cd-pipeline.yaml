@@ -32,6 +32,11 @@ jobs:
         run: |
           go build -o time-service .
 
+      - name: Run Go sample unit tests
+        working-directory: ./microservices/app/
+        run: |
+          go test -v
+
       - name: Build Docker base image "Builder" for next stage
         working-directory: ./microservices/app/
         run: |
