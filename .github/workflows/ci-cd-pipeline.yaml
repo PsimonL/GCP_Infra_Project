@@ -32,6 +32,11 @@ jobs:
         run: |
           go build -o time-service .
 
+      - name: Run Go sample unit tests
+        working-directory: ./microservices/app/
+        run: |
+          go test -v
+
       - name: Build Docker base image "Builder" for next stage
         working-directory: ./microservices/app/
         run: |
@@ -56,3 +61,5 @@ jobs:
           IMAGE_TAG=$(date +'%Y-%m-%d_%H-%M-%S')
           docker tag time-service:production time-service:$IMAGE_TAG
           echo "Tagged image as: time-service:$IMAGE_TAG"
+
+      # TODO: add push to GCP when credentials for GCP account will be available
