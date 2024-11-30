@@ -35,3 +35,7 @@ not big and focuses mainly on infrastructure side and GCP services.
 - Container diagram (C2 diagram) for this project:  
 
 ![C2_diagram_for_this_project](images_n_resources/GCP_Infra_Project_Diagram.png)
+
+
+## Useful stuff and links:
+- Automate Terraform with GitHub Actions: https://developer.hashicorp.com/terraform/tutorials/automation/github-actions
