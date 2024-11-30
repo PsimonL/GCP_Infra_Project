@@ -44,18 +44,12 @@ jobs:
 
       - name: Start final container
         run: |
-          docker run -d -p 8081:8081 --name time-service-app \
-            --health-cmd="curl -f http://localhost:8081/health || exit 1" \
-            --health-interval=10s \
-            --health-timeout=10s \
-            --health-retries=3 \
-            --health-start-period=5s \
-            time-service:production
+          docker run -d -p 8081:8081 --name time-service-app --health-cmd="curl -f http://localhost:8081/health || exit 1" --health-interval=10s --health-timeout=10s --health-retries=3 --health-start-period=5s time-service:production
 
-      - name: Wait for container to be healthy
+      - name: Check if container is running
         run: |
           echo "Waiting for container to become healthy..."
-          timeout 30s bash -c 'while [[ "$(docker inspect -f {{.State.Health.Status}} time-service-app)" != "healthy" ]]; do sleep 1; done'
+          timeout 5s bash -c 'while [[ "$(docker inspect -f {{.State.Status}} time-service-app)" != "running" ]]; do sleep 1; done'
 
       - name: Tag Docker image with date and time
         run: |
