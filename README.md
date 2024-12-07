@@ -37,5 +37,15 @@ not big and focuses mainly on infrastructure side and GCP services.
 ![C2_diagram_for_this_project](images_n_resources/GCP_Infra_Project_Diagram.png)
 
 
+## Sample Snyk scan 
+- Unfortunately free versions of GitHub and Snyk only offer scanning and results at https://app.snyk.io/ Snyk web console.
+But sample CI/CD config was provided to run SAST type scanning and visualize results at ```GCP_Infra_Project > Security > Code scanning alerts```.
+- Sample scan from Snyk web console:
+![SampleSnykScan.png](images_n_resources/SampleSnykScan.png)
+- Sample scan report integrated with Github, based on provided [documentation](https://github.com/snyk/actions/tree/master/golang):
+![sarif-example.png](https://raw.githubusercontent.com/snyk/actions/refs/heads/master/_templates/sarif-example.png)
+
+
+
 ## Useful stuff and links:
 - Automate Terraform with GitHub Actions: https://developer.hashicorp.com/terraform/tutorials/automation/github-actions
