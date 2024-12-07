@@ -63,3 +63,23 @@ jobs:
           echo "Tagged image as: time-service:$IMAGE_TAG"
 
       # TODO: add push to GCP when credentials for GCP account will be available
+
+#  security:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Run Snyk to check for vulnerabilities
+#        uses: snyk/actions/golang@master
+#        continue-on-error: true # Ensure SARIF upload is executed
+#        env:
+#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#        with:
+#          args: --sarif-file-output=snyk.sarif
+#
+#      - name: Upload Snyk results to GitHub Code Scanning
+#        uses: github/codeql-action/upload-sarif@v2
+#        with:
+#          sarif_file: snyk.sarif
