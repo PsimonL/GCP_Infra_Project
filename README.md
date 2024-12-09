@@ -1,41 +1,54 @@
 # GCP_Infra_Project
-## Project description
+## Project Description
 ### Name:
-Securing a Golang Application Against DDoS Attacks Using Google Cloud Armor and Automated Deployments with Terraform
-### Description: 
-Create a system that protects a Golang application from DDoS attacks and other threats using Google Cloud Armor. The deployment of the application and infrastructure is fully automated with Terraform.  
+Securing a Golang Application Against DoS/DDoS Attacks Using Google Cloud Armor and Automated Deployments with Terraform.
+
+### Description:
+The project automates the deployment of a Golang application and its infrastructure to Google Cloud Platform (GCP). The codebase, including the application source code and Terraform infrastructure configuration, is stored in GitHub. Deployment is triggered automatically upon changes to the repository, ensuring consistent and secure provisioning of the environment and application.
+
 ### Used GCP Services:
-- **Google Cloud Armor**: Protection against DDoS attacks and defining access rules.
-- **Cloud Load Balancer**: Traffic distribution and integration with Cloud Armor. 7th layer type load balancer - http(s).
-- **Compute Engine / Cloud Run**: Hosting the application.
-- **Cloud Logging / Monitoring**: Providing visibility into app performance, security events and log unauthorized ora authorized access attempts.
-- **Notification Channels / Cloud Functions**: Can be configured to send alerts via email, SMS, webhooks etc.
+- **Google Cloud Armor**: Protection against DoS/DDoS attacks and defining access rules.
+- **Cloud Load Balancer**: Traffic distribution and integration with Cloud Armor. 7th layer type load balancer (HTTP(S)).
+- **Cloud Run**: Hosting the Golang application with serverless autoscaling.
+- **Compute Engine**: Small virtual machines provisioned for testing DoS/DDoS scenarios.
+- **Cloud Logging / Monitoring**: Providing visibility into app performance, security events, and detecting DoS/DDoS attempts.
+- **Notification Channels / Cloud Functions**: Configured to send real-time, security alerts via email, SMS, webhooks, etc.
+
 ### Functionalities:
-- **Golang** microservice development.
+- **Golang Microservice**:
+  + A lightweight Golang-based service designed for high performance.
 - **Security**:
-    + Load Balancer: 
-    + Cloud Armor rules: Define IPs that can access the application.
+  + Cloud Load Balancer integrated with Google Cloud Armor for traffic control.
+  + Cloud Armor rules:
+    - Define IPs that can access the application.
+    - Implement rate-limiting policies to mitigate DoS attacks.
 - **CI/CD**:
-    + GitHub Actions pipeline for building a Docker image of the application and deploying it to Cloud Run / GCE.
-- **IaC**:
-    + Terraform as IaC tool for infrastructure configuration and deployment: `terraform init`, `plan`, `apply`.
-- **Logging and monitoring**: 
-    + Integrate with Cloud Logging to monitor unauthorized access attempts.
+  + **GitHub Actions pipeline** automates deployment:
+    - Builds a Docker image of the application.
+    - Deploys it to Cloud Run.
+    - Provisions infrastructure (including Load Balancer and Cloud Armor) using Terraform.
+- **Infrastructure as Code (IaC)**:
+  + Terraform used for consistent and automated provisioning:
+    - Cloud Run for the application.
+    - Load Balancer and Cloud Armor rules for security.
+    - Small Compute Engine instances for testing attacks.
+  + Commands like `terraform init`, `terraform plan`, and `terraform apply` are executed automatically as part of the CI/CD pipeline.
+- **Logging and Monitoring**:
+  + Integrates with Cloud Logging to track unauthorized access attempts and abnormal request patterns.
 - **Alerts**:
-    + Using Notification Channels or Cloud Functions to notify about alert.
+  + Notification Channels or Cloud Functions send alerts for suspicious activity, such as repeated requests from a single IP.
 ---
 
 ## Repo structure description
 Good practice is to store code and configs separately, but in this case, "monorepo" is also appropriate choice. Project is
 not big and focuses mainly on infrastructure side and GCP services.
-
+---
 
 ## C4 model: C2 diagram - container diagram
 - The C4 Model is a simple yet powerful approach for visualizing software architecture, focusing on four hierarchical levels: Context, Containers, Components, and Code. It helps communicate the structure and interactions of a system in a clear and structured way, suitable for both technical and non-technical audiences. More information can be found here: https://c4model.com/.
-- Container diagram (C2 diagram) for this project:  
-
+- Container diagram (C2 diagram) for this project:
 ![C2_diagram_for_this_project](images_n_resources/GCP_Infra_Project_Diagram.png)
-
+---
 
 ## Sample Snyk scan 
 - Unfortunately free versions of GitHub and Snyk only offer scanning and results at https://app.snyk.io/ Snyk web console.
@@ -47,8 +60,11 @@ Follow **(Details)** link which can be seen at below screenshot:
 ![SnykPR_sample.png](images_n_resources/SnykPR_sample.png)
 - Sample scan report integrated with Github, based on provided [documentation](https://github.com/snyk/actions/tree/master/golang):
 ![sarif-example.png](https://raw.githubusercontent.com/snyk/actions/refs/heads/master/_templates/sarif-example.png)
-
+---
 
 
 ## Useful stuff and links:
 - Automate Terraform with GitHub Actions: https://developer.hashicorp.com/terraform/tutorials/automation/github-actions
+---
+
+[//]: # (![ssss]&#40;https://media.licdn.com/dms/image/v2/D4E22AQHS-eSy_8RJXw/feedshare-shrink_1280/feedshare-shrink_1280/0/1733581957058?e=1736380800&v=beta&t=EaayECsrz5lgZcnjxLM4G7ON-9AjCbgDmsjdY9APteQ&#41;)

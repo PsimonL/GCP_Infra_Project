@@ -1,50 +1,47 @@
 provider "google" {
-  project = var.gcp_project
-  region  = var.gcp_region
+  credentials = file(var.gcp_credentials_file)
+  project     = var.project_id
+  region      = var.region
 }
 
-resource "google_compute_instance" "default" {
-  name         = ""
-  machine_type = ""
-  zone         = ""
+resource "google_artifact_registry_repository" "artifact_repository_service" {
+  location      = var.region
+  repository_id = var.artifact_repository_id
+  format        = "DOCKER"
 
-  boot_disk {
-    initialize_params {
-      image = ""
+  description = "Artifact Registry for Docker images"
+}
+
+resource "google_cloud_run_service" "cloud_run_service" {
+  name     = var.cloud_run_service_name
+  location = var.region
+
+  template {
+    spec {
+      containers {
+        image = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.artifact_repository_service.repository_id}/${var.docker_image}"
+
+        resources {
+          limits = {
+            memory = "512Mi"
+            cpu    = "1"
+          }
+        }
+      }
     }
   }
 
-  network_interface {
-    network = "default"
-    access_config {}
+  traffic {
+    percent         = 100
+    latest_revision = true
   }
+
+  depends_on = [google_artifact_registry_repository.artifact_repository_service]
 }
 
-
-#resource "google_cloud_run_service" "default" {
-#  name     = "time-service"
-#  location = var.gcp_region
-#  project  = var.gcp_project
-#
-#  template {
-#    spec {
-#      containers {
-#        image = "gcr.io/${var.gcp_project}/time-service:latest"
-#
-#        ports {
-#          container_port = 8080
-#        }
-#
-#        env {
-#          name  = "PORT"
-#          value = "8081"
-#        }
-#      }
-#    }
-#  }
-#
-#  traffics {
-#    latest_revision = true
-#    percent         = 100
-#  }
-#}
+resource "google_cloud_run_service_iam_member" "all_users" {
+  service  = google_cloud_run_service.cloud_run_service.name
+  location = google_cloud_run_service.cloud_run_service.location
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
