@@ -5,6 +5,7 @@ provider "google" {
 }
 
 resource "google_artifact_registry_repository" "artifact_repository_service" {
+  # count = var.enable_artifact_registry ? 1 : 0
   location      = var.region
   repository_id = var.artifact_repository_id
   format        = "DOCKER"
@@ -48,3 +49,5 @@ resource "google_cloud_run_service_iam_member" "all_users" {
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
+
+###########################################################################################
