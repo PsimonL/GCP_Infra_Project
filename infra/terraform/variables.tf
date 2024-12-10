@@ -31,5 +31,5 @@ variable "cloud_run_service_name" {
 variable "docker_image" {
   description = "Docker image to deploy"
   type        = string
-  default     = "time-service:latest"
+  default     = "time-service:1.0.0"
 }
