@@ -21,16 +21,14 @@ resource "google_cloud_run_service" "cloud_run_service" {
       service_account_name = "terraform-deployer@modified-link-444013-i9.iam.gserviceaccount.com"
       containers {
         image = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.artifact_repository_service.repository_id}/${var.docker_image}"
-
+        ports {
+          container_port = 8081
+        }
         resources {
           limits = {
             memory = "512Mi"
             cpu    = "1"
           }
-        }
-        env {
-          name  = "PORT"
-          value = "8081"
         }
       }
     }
