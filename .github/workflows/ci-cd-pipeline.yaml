@@ -73,10 +73,9 @@ jobs:
 
       - name: Tag Docker image and push it to GCR
         run: |
-          IMAGE_TAG=$(date +'%Y-%m-%d_%H-%M-%S')
-          docker tag time-service:production ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG
-          echo "Tagged image as: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG"       
-          docker push ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG
+          docker tag time-service:production ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:${{ vars.IMAGE_TAG }}
+          echo "Tagged image as: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:${{ vars.IMAGE_TAG }}"       
+          docker push ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:${{ vars.IMAGE_TAG }}
 
       # - name: Deploy to Cloud Run
       #   run: |
