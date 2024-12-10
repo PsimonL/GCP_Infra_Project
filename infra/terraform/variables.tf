@@ -1,7 +1,7 @@
 variable "gcp_credentials_file" {
   description = "Path to the Google Cloud credentials JSON file"
   type        = string
-  default     = "../../../modified-link-444013-i9-6d4e030f9f20.json"
+  default     = "../../../modified-link-444013-i9-6a066a85ca86.json"
 }
 
 variable "project_id" {
@@ -31,5 +31,5 @@ variable "cloud_run_service_name" {
 variable "docker_image" {
   description = "Docker image to deploy"
   type        = string
-  default     = "my-docker-image:latest"
+  default     = "time-service:latest"
 }
