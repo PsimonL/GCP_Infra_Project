@@ -56,11 +56,11 @@ jobs:
           echo "Waiting for container to become healthy..."
           timeout 5s bash -c 'while [[ "$(docker inspect -f {{.State.Status}} time-service-app)" != "running" ]]; do sleep 1; done'
 
-      - name: Tag Docker image with date and time
-        run: |
-          IMAGE_TAG=$(date +'%Y-%m-%d_%H-%M-%S')
-          docker tag time-service:production time-service:$IMAGE_TAG
-          echo "Tagged image as: time-service:$IMAGE_TAG"
+      # - name: Tag Docker image with date and time
+      #   run: |
+      #     IMAGE_TAG=$(date +'%Y-%m-%d_%H-%M-%S')
+      #     docker tag time-service:production time-service:$IMAGE_TAG
+      #     echo "Tagged image as: time-service:$IMAGE_TAG"
           
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v1
@@ -69,25 +69,22 @@ jobs:
 
       - name: Configure Docker for GCR
         run: |
-          gcloud auth configure-docker ${{ vars.REGION }}-docker.pkg.dev
+          gcloud auth configure-docker ${{ vars.REGION }}-docker.pkg.dev          
 
-      - name: Tag Docker image
+      - name: Tag Docker image and push it to GCR
         run: |
           IMAGE_TAG=$(date +'%Y-%m-%d_%H-%M-%S')
           docker tag time-service:production ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG
-          echo "Tagged image as: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG"
-
-      - name: Push Docker image to GCR
-        run: |
+          echo "Tagged image as: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG"       
           docker push ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG
 
-      - name: Deploy to Cloud Run
-        run: |
-          gcloud run deploy time-service \
-            --image ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG \
-            --platform managed \
-            --region ${{ vars.REGION }} \
-            --allow-unauthenticated
+      # - name: Deploy to Cloud Run
+      #   run: |
+      #     gcloud run deploy time-service \
+      #       --image ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:$IMAGE_TAG \
+      #       --platform managed \
+      #       --region ${{ vars.REGION }} \
+      #       --allow-unauthenticated
 
 
 #  security:
