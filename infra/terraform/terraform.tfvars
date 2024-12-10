@@ -1,4 +1,4 @@
-gcp_credentials_file = "../../../modified-link-444013-i9-6d4e030f9f20.json"
+gcp_credentials_file = "../../../modified-link-444013-i9-6a066a85ca86.json"
 project_id           = "modified-link-444013-i9"
 region               = "europe-central2"
 artifact_repository_id = "my-artifact-repository"

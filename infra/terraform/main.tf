@@ -18,6 +18,7 @@ resource "google_cloud_run_service" "cloud_run_service" {
 
   template {
     spec {
+      service_account_name = "terraform-deployer@modified-link-444013-i9.iam.gserviceaccount.com"
       containers {
         image = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.artifact_repository_service.repository_id}/${var.docker_image}"
 
