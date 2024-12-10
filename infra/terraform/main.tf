@@ -28,6 +28,10 @@ resource "google_cloud_run_service" "cloud_run_service" {
             cpu    = "1"
           }
         }
+        env {
+          name  = "PORT"
+          value = "8081"
+        }
       }
     }
   }
