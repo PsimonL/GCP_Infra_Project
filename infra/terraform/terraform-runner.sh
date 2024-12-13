@@ -10,9 +10,9 @@ terraform destroy
 # ########## 1 ##########
 terraform apply -target module.artifact_registry
 # ########## 2 ##########
-terraform apply -target module.iam_member
-# ########## 3 ##########
 terraform apply -target module.cloud_run_service
+# ########## 3 ##########
+terraform apply -target module.iam_member
 # Load Balancer and Cloud Armor
 # ########## 4 ##########
 terraform apply -target module.load_balancer_n_cloud_armor

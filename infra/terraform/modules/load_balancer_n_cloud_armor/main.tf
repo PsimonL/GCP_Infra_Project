@@ -37,16 +37,19 @@ resource "google_compute_global_forwarding_rule" "frontend" {
   name                  = var.forwarding_rule_name
   project               = var.project_id
   ip_protocol           = "TCP"
-  ip_version            = "IPV4"
+#  ip_version            = "IPV4"
+#  ip_address            = "34.116.142.203"
+  ip_address            = google_compute_global_address.lb_global_ip.address
   port_range            = "80-80"
   load_balancing_scheme = "EXTERNAL_MANAGED"
-  ip_address            = google_compute_address.lb_ip.address
   target                = google_compute_target_http_proxy.http_proxy.self_link
 }
 
-resource "google_compute_address" "lb_ip" {
-  name    = "load-balancer-ip"
-  project = var.project_id
+resource "google_compute_global_address" "lb_global_ip" {
+  name         = "global-load-balancer-ip"
+  project      = var.project_id
+  ip_version   = "IPV4"
+  address_type = "EXTERNAL"
 }
 
 resource "google_compute_security_policy" "default_security_policy" {
