@@ -4,49 +4,30 @@ provider "google" {
   region      = var.region
 }
 
-resource "google_artifact_registry_repository" "artifact_repository_service" {
-  location      = var.region
-  repository_id = var.artifact_repository_id
-  format        = "DOCKER"
-
-  description = "Artifact Registry for Docker images"
+module "artifact_registry" {
+  source                   = "./modules/artifact_registry"
+  region                   = var.region
+  artifact_repository_id   = var.artifact_repository_id
 }
 
-resource "google_cloud_run_service" "cloud_run_service" {
-  name     = var.cloud_run_service_name
-  location = var.region
-
-  template {
-    spec {
-      service_account_name = "terraform-deployer@modified-link-444013-i9.iam.gserviceaccount.com"
-      containers {
-        image = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.artifact_repository_service.repository_id}/${var.docker_image}"
-
-        resources {
-          limits = {
-            memory = "512Mi"
-            cpu    = "1"
-          }
-        }
-        env {
-          name  = "PORT"
-          value = "8081"
-        }
-      }
-    }
-  }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-
-  depends_on = [google_artifact_registry_repository.artifact_repository_service]
+module "cloud_run_service" {
+  source                     = "./modules/cloud_run_service"
+  region                     = var.region
+  cloud_run_service_name     = var.cloud_run_service_name
+#  service_account_name       = "terraform-deployer@${var.project_id}.iam.gserviceaccount.com"
+  artifact_repository_id     = var.artifact_repository_id
+  docker_image               = var.docker_image
 }
 
-resource "google_cloud_run_service_iam_member" "all_users" {
-  service  = google_cloud_run_service.cloud_run_service.name
-  location = google_cloud_run_service.cloud_run_service.location
-  role     = "roles/run.invoker"
-  member   = "allUsers"
+module "iam_member" {
+  source                     = "./modules/iam_member"
+  region                     = var.region
+  cloud_run_service_name     = var.cloud_run_service_name
+}
+
+module "load_balancer_n_cloud_armor" {
+  source                 = "./modules/load_balancer_n_cloud_armor"
+  project_id             = var.project_id
+  region                 = var.region
+  cloud_run_service_name = var.cloud_run_service_name
 }
