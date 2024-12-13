@@ -31,3 +31,14 @@ module "load_balancer_n_cloud_armor" {
   region                 = var.region
   cloud_run_service_name = var.cloud_run_service_name
 }
+
+
+module "gce" {
+  source                 = "./modules/gce"
+  region                 = var.region
+}
+
+
+module "observability_n_alerting" {
+  source                 = "./modules/observability_n_alerting"
+}
