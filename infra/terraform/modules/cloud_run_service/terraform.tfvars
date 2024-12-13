@@ -1,0 +1,5 @@
+project_id             = "modified-link-444013-i9"
+region                 = "europe-central2"
+cloud_run_service_name = "my-cloud-run-service"
+docker_image           = "time-service:1.0.0"
+artifact_repository_id = "my-artifact-repository"
