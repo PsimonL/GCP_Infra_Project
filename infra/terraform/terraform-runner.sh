@@ -16,9 +16,10 @@ terraform apply -target module.iam_member
 # Load Balancer and Cloud Armor
 # ########## 4 ##########
 terraform apply -target module.load_balancer_n_cloud_armor
-# Observability
-# ########## ***5*** ##########
-# ***GCE***
+# GCE
+# ########## 5 ##########
+terraform apply -target module.gce
+# ***Observability***
 
 
 # Sample Selective

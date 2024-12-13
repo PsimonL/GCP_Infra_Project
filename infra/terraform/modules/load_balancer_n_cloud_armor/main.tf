@@ -85,8 +85,8 @@ resource "google_compute_security_policy" "default_security_policy" {
       exceed_action  = "deny(403)"
 
       rate_limit_threshold {
-        count        = 50
-        interval_sec = 120
+        count        = 25
+        interval_sec = 60
       }
     }
   }
