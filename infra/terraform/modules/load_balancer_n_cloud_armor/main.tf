@@ -13,6 +13,7 @@ resource "google_compute_backend_service" "backend" {
   security_policy  = google_compute_security_policy.default_security_policy.self_link
 
   log_config {
+    enable = true
     sample_rate = 1.0
   }
 

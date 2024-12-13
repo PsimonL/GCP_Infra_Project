@@ -37,3 +37,8 @@ module "gce" {
   source                 = "./modules/gce"
   region                 = var.region
 }
+
+
+module "observability_n_alerting" {
+  source                 = "./modules/observability_n_alerting"
+}
