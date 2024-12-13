@@ -34,23 +34,3 @@ variable "docker_image" {
   default     = "time-service:1.0.0"
 }
 
-
-
-
-# variable "enable_artifact_registry" {
-#   description = "Enable or disable Artifact Registry"
-#   type        = bool
-#   default     = true
-# }
-
-# variable "enable_cloud_run" {
-#   description = "Enable or disable Artifact Registry"
-#   type        = bool
-#   default     = true
-# }
-
-# variable "enable_iam" {
-#   description = "Enable or disable Artifact Registry"
-#   type        = bool
-#   default     = true
-# }
