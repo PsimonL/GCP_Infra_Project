@@ -86,7 +86,7 @@ resource "google_compute_security_policy" "default_security_policy" {
 
       rate_limit_threshold {
         count        = 50
-        interval_sec = 60
+        interval_sec = 120
       }
     }
   }
