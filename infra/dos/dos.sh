@@ -9,3 +9,5 @@
 #
 ## https://shouts.dev/articles/how-to-install-hping3-flood-dos-attack
 
+# Will not work casue load balancer is only configured for layer 7 HTTP(S)
+

@@ -1,7 +1,9 @@
 import requests
 import time
 
-url = "http://34.8.66.70/time"
+load_balancer_id = "34.8.66.70"
+endpoint = "time"
+url = f"http://{load_balancer_id}/{endpoint}"
 number_of_requests = 30
 interval_between_requests = 1
 
@@ -20,4 +22,6 @@ def send_requests():
 if __name__ == "__main__":
     send_requests()
 
+# If ec2-micro uses boot disk data will not be saved.
+# Needed persisent disk to save actuall machine state.
 # sudo yum install -y python3 python3-pip
