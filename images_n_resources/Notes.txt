@@ -1,0 +1,5 @@
+Click on Load balacner => Details => Check Frotnedn and IP:Port
+
+Go to Log Explorer => Copy and Paste: resource.type="http_load_balancer"
+
+Go to cloud Run => Click on service (service details) => Networking => Ingress for "Internal" and check box "Allow traffic from external Application Load Balancers"
