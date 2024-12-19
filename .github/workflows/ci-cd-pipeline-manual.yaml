@@ -1,0 +1,68 @@
+name: Manual CI/CD Pipeline
+
+on:
+  workflow_dispatch:  # Run manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go environment
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19'
+
+      - name: Install dependencies
+        working-directory: ./microservices/app/
+        run: |
+          go mod tidy
+          go mod vendor  
+
+      - name: Build Go project
+        working-directory: ./microservices/app/
+        run: |
+          go build -o time-service .
+
+      - name: Run Go sample unit tests
+        working-directory: ./microservices/app/
+        run: |
+          go test -v
+
+      - name: Build Docker base image "Builder" for next stage
+        working-directory: ./microservices/app/
+        run: |
+          docker build --target builder -t time-service:builder .
+
+      - name: Build Docker image as final Artifact
+        working-directory: ./microservices/app/
+        run: |
+          docker build --target production -t time-service:production .
+
+      - name: Start final container
+        run: |
+          docker run -d -p 8081:8081 --name time-service-app --health-cmd="curl -f http://localhost:8081/health || exit 1" --health-interval=10s --health-timeout=10s --health-retries=3 --health-start-period=5s time-service:production
+
+      - name: Check if container is running
+        run: |
+          echo "Waiting for container to become healthy..."
+          timeout 5s bash -c 'while [[ "$(docker inspect -f {{.State.Status}} time-service-app)" != "running" ]]; do sleep 1; done'
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Configure Docker for GCR
+        run: |
+          gcloud auth configure-docker ${{ vars.REGION }}-docker.pkg.dev          
+
+      - name: Tag Docker image and push it to GCR
+        run: |
+          docker tag time-service:production ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:${{ vars.IMAGE_TAG }}
+          echo "Tagged image as: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:${{ vars.IMAGE_TAG }}"       
+          docker push ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.REPOSITORY_NAME }}/time-service:${{ vars.IMAGE_TAG }}
+
