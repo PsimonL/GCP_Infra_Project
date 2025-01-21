@@ -109,6 +109,8 @@ In my case it was AGH University of Science and Technology domain e-mail address
 - https://medium.com/@nanditasahu031/terraformer-generate-terraform-files-from-existing-infrastructure-5d709fedd2b9
 - Github Manual Workflow notes: https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow
 - GCP Terraformer: https://github.com/GoogleCloudPlatform/terraformer?tab=readme-ov-file
+- Snyk-Github: https://github.com/snyk/actions
+- https://docs.snyk.io/scan-with-snyk/pull-requests/pull-request-checks
 ---
 
 [//]: # (![ssss]&#40;https://media.licdn.com/dms/image/v2/D4E22AQHS-eSy_8RJXw/feedshare-shrink_1280/feedshare-shrink_1280/0/1733581957058?e=1736380800&v=beta&t=EaayECsrz5lgZcnjxLM4G7ON-9AjCbgDmsjdY9APteQ&#41;)
