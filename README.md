@@ -96,6 +96,19 @@ In my case it was AGH University of Science and Technology domain e-mail address
 ## Useful stuff and links:
 - Automate Terraform with GitHub Actions: https://developer.hashicorp.com/terraform/tutorials/automation/github-actions
 - Automate Deployment to GCP: https://www.youtube.com/watch?v=kZYsoav104w&ab_channel=COMMAND
+- Terraform guides: https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started#linking-gcp-resources
+- Loud Balancing: https://cloud.google.com/load-balancing?hl=pl
+- https://cloud.google.com/load-balancing/docs/application-load-balancer
+- GCP Cloud Armor: https://yassinekader.medium.com/how-to-secure-cloud-run-with-cloud-armor-a-comprehensive-guide-c503b6df011
+- Loud Balancer + Cloud Armor: https://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless#gcloud_1
+- https://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless#ssl_certificate_resource
+- https://cloud.google.com/load-balancing/docs/https/setting-up-reg-ext-https-serverless
+- GCP IP Addressing: https://cloud.google.com/compute/docs/ip-addresses#externaladdresses
+- https://cloud.google.com/vpc/network-pricing#ipaddress
+- Generate Terraform code from cloud (GCP) infrastructure configs: https://medium.com/@Matt-Jns/generate-the-terraform-code-for-google-cloud-resources-92e751e6cdd2
+- https://medium.com/@nanditasahu031/terraformer-generate-terraform-files-from-existing-infrastructure-5d709fedd2b9
+- Github Manual Workflow notes: https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow
+- GCP Terraformer: https://github.com/GoogleCloudPlatform/terraformer?tab=readme-ov-file
 ---
 
 [//]: # (![ssss]&#40;https://media.licdn.com/dms/image/v2/D4E22AQHS-eSy_8RJXw/feedshare-shrink_1280/feedshare-shrink_1280/0/1733581957058?e=1736380800&v=beta&t=EaayECsrz5lgZcnjxLM4G7ON-9AjCbgDmsjdY9APteQ&#41;)
